@@ -1,0 +1,41 @@
+# Clean replication corpus: Sangraha Bengali, verified split.
+#
+# Use the verified split only.  The synthetic split is largely machine
+# translation of English Wikimedia text and would confound a morphology study.
+#
+#   python -m bcvae build-corpus --config configs/corpus/sangraha_ben.yaml --dry-run
+#   python -m bcvae build-corpus --config configs/corpus/sangraha_ben.yaml
+
+source: sangraha
+dataset: ai4bharat/sangraha
+config: verified
+split: ben              # Sangraha exposes one split per language
+revision: null
+language: null          # split already selects Bengali
+language_field: language
+text_field: text
+id_field: doc_id
+
+out: data/processed/sangraha
+max_sentences: 2000000
+val_sentences: 20000
+test_sentences: 20000
+max_documents: null
+
+min_chars: 20
+max_chars: 200
+min_words: 4
+max_words: 40
+script: bengali
+min_script_ratio: 0.8
+max_digit_ratio: 0.2
+require_terminal_punctuation: true
+
+dedupe: normalized
+val_frac: 0.01
+test_frac: 0.01
+seed: 13
+show_progress: true
+
+license: CC-BY-4.0
+attribution: AI4Bharat Sangraha (IndicLLMSuite)

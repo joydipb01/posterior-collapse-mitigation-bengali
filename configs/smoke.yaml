@@ -1,0 +1,28 @@
+# Tiny end-to-end run on the bundled sample.  Used by `make smoke` and the tests.
+inherit: base.yaml
+
+data:
+  train: data/sample/bengali_sample.txt
+  val: data/sample/bengali_sample.txt
+  test: data/sample/bengali_sample.txt
+  max_tokens: 24
+
+tokenizer:
+  type: bpe
+  vocab_size: 300
+
+model:
+  emb_dim: 32
+  hidden_dim: 64
+  latent_dim: 8
+  dropout: 0.1
+
+train:
+  epochs: 2
+  batch_size: 16
+  log_every: 1
+  eval_every: 1
+  probe_every: 1
+  kl:
+    schedule: linear
+    warmup_epochs: 1

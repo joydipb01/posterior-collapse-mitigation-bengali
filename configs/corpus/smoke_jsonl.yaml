@@ -1,0 +1,34 @@
+# Offline smoke recipe: a local JSONL file, no network and no `datasets`
+# dependency.  Used by `make corpus-smoke` and the tests.
+#
+#   python -m bcvae build-corpus --config configs/corpus/smoke_jsonl.yaml --dry-run
+#   python -m bcvae build-corpus --config configs/corpus/smoke_jsonl.yaml
+
+source: jsonl
+path: data/sample/docs.jsonl
+text_field: text
+id_field: id
+
+out: runs/corpus-smoke
+max_sentences: 20
+val_sentences: 2
+test_sentences: 2
+max_documents: null
+
+min_chars: 10
+max_chars: 200
+min_words: 3
+max_words: 40
+script: bengali
+min_script_ratio: 0.5
+max_digit_ratio: 0.5
+require_terminal_punctuation: true
+
+dedupe: normalized
+val_frac: 0.1
+test_frac: 0.1
+seed: 13
+show_progress: false
+
+license: sample only
+attribution: bundled 40-sentence sample

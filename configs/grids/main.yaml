@@ -1,0 +1,11 @@
+# Cross-product experiment grid.  Each cell is trained once per seed.
+# Run `bcvae grid --grid configs/grids/main.yaml --dry-run` first.
+base: ../base.yaml
+out_dir: runs/grid
+
+axes:
+  tokenizer.type: [char, bpe, morph]
+  train.kl.schedule: [linear, cyclical]
+
+seeds: [13, 17, 23]
+max_runs: null

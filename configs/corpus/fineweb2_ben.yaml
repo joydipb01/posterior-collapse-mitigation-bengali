@@ -1,0 +1,40 @@
+# Primary training corpus: FineWeb-2 Bengali.
+#
+# Stream it (no 87 GB download):
+#   python -m bcvae build-corpus --config configs/corpus/fineweb2_ben.yaml --dry-run
+#   python -m bcvae build-corpus --config configs/corpus/fineweb2_ben.yaml
+
+source: fineweb2
+dataset: HuggingFaceFW/fineweb-2
+config: ben_Beng
+split: train
+revision: null          # pin a dataset commit for a fully reproducible corpus
+language: null          # ben_Beng is already language-filtered
+language_field: language
+text_field: text
+id_field: id
+
+out: data/processed
+max_sentences: 2000000  # train target
+val_sentences: 20000
+test_sentences: 20000
+max_documents: null      # set a number for a quick trial run
+
+# Sentence filters.  Tune these before scaling up.
+min_chars: 20
+max_chars: 200
+min_words: 4
+max_words: 40
+script: bengali
+min_script_ratio: 0.8
+max_digit_ratio: 0.2
+require_terminal_punctuation: true
+
+dedupe: normalized       # exact | normalized | none
+val_frac: 0.01
+test_frac: 0.01
+seed: 13
+show_progress: true
+
+license: ODC-By 1.0
+attribution: FineWeb-2 (HuggingFaceFW), derived from CommonCrawl

@@ -1,0 +1,48 @@
+# English control corpus: FineWeb (English).
+#
+# FineWeb-2 deliberately does not ship an English config (English is covered
+# by the original FineWeb), so the control uses HuggingFaceFW/fineweb with the
+# documented 10B-token sample.  It is the closest same-family, same-crawl
+# English web corpus.  Use a full CC-MAIN-* config if you need to match the
+# Bengali crawl window exactly.
+#
+# H1 compares Bengali collapse against English at matched data scale and
+# domain.  This recipe uses the same filters, sentence splitter, and
+# document-level split as the Bengali corpus, but selects the Latin script.
+#
+#   python -m bcvae build-corpus --config configs/corpus/fineweb_eng.yaml --dry-run
+#   python -m bcvae build-corpus --config configs/corpus/fineweb_eng.yaml
+
+source: hf
+dataset: HuggingFaceFW/fineweb
+config: sample-10BT    # default | sample-10BT | sample-100BT | CC-MAIN-YYYY-WW
+split: train
+revision: null
+language: null
+language_field: language
+text_field: text
+id_field: id
+
+out: data/processed/eng
+max_sentences: 2000000
+val_sentences: 20000
+test_sentences: 20000
+max_documents: null
+
+min_chars: 20
+max_chars: 200
+min_words: 4
+max_words: 40
+script: latin
+min_script_ratio: 0.8
+max_digit_ratio: 0.2
+require_terminal_punctuation: true
+
+dedupe: normalized
+val_frac: 0.01
+test_frac: 0.01
+seed: 13
+show_progress: true
+
+license: ODC-By 1.0
+attribution: FineWeb (HuggingFaceFW), derived from CommonCrawl
