@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bcvae"
+version = "0.1.0"
+description = "Posterior-collapse mitigation for Bengali sentence VAEs"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+authors = [{ name = "joydipb01" }]
+keywords = ["variational-autoencoder", "bengali", "posterior-collapse", "nlp"]
+dependencies = [
+  "torch>=2.2",
+  "numpy>=1.24",
+  "PyYAML>=6.0",
+  "tokenizers>=0.15",
+  "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+corpus = ["datasets>=2.20"]
+eval = ["sacrebleu>=2.4", "bert-score>=0.3.13"]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[project.scripts]
+bcvae = "bcvae.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bcvae"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
